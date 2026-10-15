@@ -1,444 +1,343 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>발표</title>
-  <meta name="theme-color" content="#111827">
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b1020;
-      --panel: #151d30;
-      --line: #293650;
-      --text: #f3f6ff;
-      --muted: #9aa9c4;
-      --blue: #647cff;
-      --cyan: #39d9ff;
-      --red: #ff637d;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at top, #1a2850 0, transparent 50%),
-        var(--bg);
-      color: var(--text);
-      font-family: Arial, "Malgun Gothic", sans-serif;
-    }
-
-    header {
-      padding: 34px 20px 26px;
-      border-bottom: 1px solid var(--line);
-      text-align: center;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 54px;
-      height: 54px;
-      margin-bottom: 12px;
-      border-radius: 17px;
-      background: linear-gradient(135deg, var(--blue), var(--cyan));
-      color: #07101e;
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(32px, 6vw, 48px);
-      letter-spacing: -2px;
-    }
-
-    header p {
-      color: var(--muted);
-      margin: 12px 0 0;
-    }
-
-    main {
-      width: min(100% - 28px, 1000px);
-      margin: 28px auto 60px;
-    }
-
-    .panel {
-      padding: 24px;
-      background: rgba(21, 29, 48, .94);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      margin: 0 0 20px;
-      font-size: 21px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 0;
-    }
-
-    .field.full { grid-column: 1 / -1; }
-
-    label {
-      color: #c9d5ed;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid #34415e;
-      border-radius: 11px;
-      outline: none;
-      background: #0d1425;
-      color: var(--text);
-      font: inherit;
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px #647cff24;
-    }
-
-    textarea {
-      min-height: 84px;
-      resize: vertical;
-    }
-
-    button {
-      border: 0;
-      border-radius: 11px;
-      padding: 13px 18px;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 14px;
-      transition: transform .15s, opacity .15s;
-    }
-
-    button:hover { transform: translateY(-1px); }
-    button:disabled { opacity: .5; cursor: wait; transform: none; }
-
-    .primary {
-      background: linear-gradient(110deg, var(--blue), var(--cyan));
-      color: #07101e;
-    }
-
-    .secondary {
-      background: #26334e;
-      color: var(--text);
-    }
-
-    .danger {
-      background: #492333;
-      color: #ff9bab;
-      padding: 9px 12px;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .status {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .status.error { color: #ff8799; }
-    .status.success { color: #6ee7b7; }
-
-    .list-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .list-header h2 { margin: 0; }
-
-    .count {
-      color: var(--cyan);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .presentation {
-      min-width: 0;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #10182a;
-    }
-
-    .presentation-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .team-badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 8px;
-      background: #647cff20;
-      color: #aebaff;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .presentation h3 {
-      margin: 14px 0 12px;
-      font-size: 19px;
-      overflow-wrap: anywhere;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
-
-    .link-box {
-      margin-top: 16px;
-      padding: 13px;
-      border-radius: 10px;
-      background: #080e1c;
-      border: 1px solid #26334e;
-    }
-
-    .link-box a {
-      color: var(--cyan);
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      line-height: 1.7;
-      font-size: 13px;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .empty {
-      grid-column: 1 / -1;
-      padding: 42px 16px;
-      border: 1px dashed #34415e;
-      border-radius: 14px;
-      text-align: center;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .loading {
-      opacity: .7;
-      text-align: center;
-      padding: 25px;
-      color: var(--muted);
-    }
-
-    footer {
-      padding: 0 15px 30px;
-      color: #697994;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    @media (max-width: 650px) {
-      .form-grid, .cards { grid-template-columns: 1fr; }
-      .panel { padding: 18px; }
-      .field.full { grid-column: auto; }
-      header { padding-top: 26px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발표</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d30;--line:#293650;--text:#f3f6ff;--muted:#9aa9c4;--blue:#647cff;--cyan:#39d9ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#1a2850,transparent 55%),var(--bg);color:var(--text);font-family:Arial,"Malgun Gothic",sans-serif}
+header{text-align:center;padding:35px 16px 25px;border-bottom:1px solid var(--line)}
+.logo{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#07101e;font-size:25px;font-weight:900}
+h1{margin:12px 0 0;font-size:42px;letter-spacing:-2px}
+header p{color:var(--muted)}
+main{width:min(100% - 28px,1000px);margin:28px auto 50px}
+.panel{padding:24px;background:rgba(21,29,48,.96);border:1px solid var(--line);border-radius:20px;margin-bottom:24px}
+h2{margin:0 0 20px;font-size:21px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.full{grid-column:1/-1}
+label{font-size:13px;font-weight:bold;color:#c9d5ed}
+input,textarea{width:100%;padding:13px 14px;border:1px solid #34415e;border-radius:11px;background:#0d1425;color:var(--text);font:inherit;outline:none}
+input:focus,textarea:focus{border-color:var(--blue)}
+textarea{min-height:80px;resize:vertical}
+button{border:0;border-radius:11px;padding:12px 17px;cursor:pointer;font-weight:bold;font-size:14px}
+button:disabled{opacity:.55;cursor:wait}
+.primary{background:linear-gradient(110deg,var(--blue),var(--cyan));color:#07101e}
+.secondary{background:#26334e;color:var(--text)}
+.danger{background:#492333;color:#ff9bab}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.status{margin-top:13px;color:var(--muted);font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.error{color:#ff8799}.success{color:#6ee7b7}
+.list-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.list-header h2{margin:0}
+.count{color:var(--cyan);font-size:13px;font-weight:bold}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.presentation{min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:#10182a}
+.presentation-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.team-badge{padding:6px 10px;border-radius:8px;background:#647cff20;color:#aebaff;font-size:12px;font-weight:bold}
+.presentation h3{margin:15px 0 12px;font-size:19px;overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:13px;line-height:1.9;overflow-wrap:anywhere}
+.link-box{margin-top:15px;padding:13px;border-radius:10px;background:#080e1c;border:1px solid #26334e}
+.link-box a{color:var(--cyan);overflow-wrap:anywhere;word-break:break-word;line-height:1.7;font-size:13px}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.empty{grid-column:1/-1;padding:35px 15px;border:1px dashed #34415e;border-radius:14px;text-align:center;color:var(--muted);line-height:1.8}
+footer{text-align:center;padding:0 15px 30px;color:#697994;font-size:12px}
+@media(max-width:650px){.form-grid,.cards{grid-template-columns:1fr}.panel{padding:18px}.full{grid-column:auto}h1{font-size:36px}}
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="logo">P</div>
-    <h1>발표</h1>
-    <p>조별 발표 자료를 등록하고 함께 공유하세요.</p>
-  </header>
+<header>
+<div class="logo">P</div>
+<h1>발표</h1>
+<p>조별 발표 자료를 등록하고 함께 공유하세요.</p>
+</header>
 
-  <main>
-    <section class="panel">
-      <h2>＋ 발표 자료 등록</h2>
+<main>
+<section class="panel">
+<h2>＋ 발표 자료 등록</h2>
+<form id="presentationForm">
+<div class="form-grid">
+<div class="field">
+<label for="teamName">조 이름</label>
+<input id="teamName" maxlength="60" placeholder="예: 2조" required>
+</div>
+<div class="field">
+<label for="sharer">공유한 사람</label>
+<input id="sharer" maxlength="80" placeholder="이름 입력" required>
+</div>
+<div class="field full">
+<label for="title">발표 주제</label>
+<input id="title" maxlength="160" placeholder="발표 주제를 입력하세요" required>
+</div>
+<div class="field full">
+<label for="members">조원 이름</label>
+<textarea id="members" maxlength="300" placeholder="조원 이름을 입력하세요" required></textarea>
+</div>
+<div class="field full">
+<label for="link">Canva 발표 링크</label>
+<input id="link" type="url" maxlength="2000" placeholder="https://www.canva.com/..." required>
+</div>
+</div>
+<div class="actions">
+<button class="primary" id="submitButton" type="submit">발표 자료 공유하기</button>
+<button class="secondary" type="reset">초기화</button>
+</div>
+<div id="formStatus" class="status" role="status"></div>
+</form>
+</section>
 
-      <form id="presentationForm">
-        <div class="form-grid">
-          <div class="field">
-            <label for="teamName">조 이름</label>
-            <input id="teamName" name="team_name" maxlength="60"
-              placeholder="예: 2조" required>
-          </div>
+<section class="panel">
+<div class="list-header">
+<h2>공유된 발표</h2>
+<span id="count" class="count">0개</span>
+</div>
+<div id="presentationList" class="cards">
+<div class="empty">발표 자료를 불러오는 중...</div>
+</div>
+<div class="actions">
+<button class="secondary" id="refreshButton" type="button">↻ 새로고침</button>
+</div>
+<div id="listStatus" class="status" role="status"></div>
+</section>
+</main>
 
-          <div class="field">
-            <label for="sharer">공유한 사람</label>
-            <input id="sharer" name="sharer" maxlength="80"
-              placeholder="이름 입력" required>
-          </div>
+<footer>발표 자료 공유 플랫폼</footer>
 
-          <div class="field full">
-            <label for="title">발표 주제</label>
-            <input id="title" name="title" maxlength="160"
-              placeholder="발표 주제를 입력하세요" required>
-          </div>
+<script>
+"use strict";
 
-          <div class="field full">
-            <label for="members">조원 이름</label>
-            <textarea id="members" name="members" maxlength="300"
-              placeholder="조원 이름을 입력하세요" required></textarea>
-          </div>
+const SUPABASE_URL = "https://lxvaogzkibqvumphvkuv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4ihJEbVGHB6X2k_DtchQdw_S6xG2bAr";
+const API_URL = `${SUPABASE_URL}/rest/v1/teams`;
 
-          <div class="field full">
-            <label for="link">Canva 발표 링크</label>
-            <input id="link" name="link" type="url" maxlength="2000"
-              placeholder="https://www.canva.com/..." required>
-          </div>
-        </div>
+const form = document.getElementById("presentationForm");
+const submitButton = document.getElementById("submitButton");
+const refreshButton = document.getElementById("refreshButton");
+const presentationList = document.getElementById("presentationList");
+const formStatus = document.getElementById("formStatus");
+const listStatus = document.getElementById("listStatus");
+const count = document.getElementById("count");
 
-        <div class="form-actions">
-          <button class="primary" id="submitButton" type="submit">
-            발표 자료 공유하기
-          </button>
-          <button class="secondary" type="reset">초기화</button>
-        </div>
+function setStatus(element, message, type = "") {
+  element.textContent = message;
+  element.className = "status" + (type ? " " + type : "");
+}
 
-        <div id="formStatus" class="status" role="status"></div>
-      </form>
-    </section>
+function requestHeaders(extra = {}) {
+  return {
+    apikey: SUPABASE_KEY,
+    Authorization: `Bearer ${SUPABASE_KEY}`,
+    ...extra
+  };
+}
 
-    <section class="panel">
-      <div class="list-header">
-        <h2>공유된 발표</h2>
-        <span id="count" class="count">0개</span>
-      </div>
+function makeElement(tag, className = "", text = "") {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  element.textContent = text;
+  return element;
+}
 
-      <div id="presentationList" class="cards">
-        <div class="loading">발표 자료를 불러오는 중...</div>
-      </div>
+function isValidUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
 
-      <div class="form-actions">
-        <button class="secondary" id="refreshButton" type="button">
-          ↻ 새로고침
-        </button>
-      </div>
-      <div id="listStatus" class="status" role="status"></div>
-    </section>
-  </main>
+function createCard(item) {
+  const card = makeElement("article", "presentation");
+  const top = makeElement("div", "presentation-top");
+  top.appendChild(makeElement("span", "team-badge", item.team_name || "조 이름 없음"));
+  top.appendChild(makeElement("span", "count", "#" + item.id));
+  card.appendChild(top);
 
-  <footer>발표 자료 공유 플랫폼</footer>
+  card.appendChild(makeElement("h3", "", item.title || "제목 없음"));
 
-  <script>
-    "use strict";
+  const meta = makeElement("div", "meta");
+  meta.appendChild(makeElement("div", "", "공유한 사람: " + (item.sharer || "미입력")));
+  meta.appendChild(makeElement("div", "", "조원: " + (item.members || "미입력")));
 
-    const SUPABASE_URL = "https://lxvaogzkibqvumphvkuv.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_4ihJEbVGHB6X2k_DtchQdw_S6xG2bAr";
-    const API_URL = `${SUPABASE_URL}/rest/v1/teams`;
+  if (item.created_at) {
+    const date = new Date(item.created_at);
+    if (!Number.isNaN(date.getTime())) {
+      meta.appendChild(makeElement("div", "", "등록 시간: " + date.toLocaleString("ko-KR")));
+    }
+  }
 
-    const form = document.getElementById("presentationForm");
-    const submitButton = document.getElementById("submitButton");
-    const refreshButton = document.getElementById("refreshButton");
-    const presentationList = document.getElementById("presentationList");
-    const formStatus = document.getElementById("formStatus");
-    const listStatus = document.getElementById("listStatus");
-    const count = document.getElementById("count");
+  card.appendChild(meta);
 
-    function setStatus(element, message, type = "") {
-      element.textContent = message;
-      element.className = "status" + (type ? " " + type : "");
+  const linkBox = makeElement("div", "link-box");
+  if (isValidUrl(item.link || "")) {
+    const link = makeElement("a", "", item.link);
+    link.href = item.link;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    linkBox.appendChild(link);
+  } else {
+    linkBox.appendChild(makeElement("span", "", item.link || "링크 없음"));
+  }
+  card.appendChild(linkBox);
+
+  const actions = makeElement("div", "card-actions");
+
+  const openButton = makeElement("button", "primary", "발표 열기");
+  openButton.type = "button";
+  openButton.addEventListener("click", () => {
+    if (isValidUrl(item.link || "")) {
+      window.open(item.link, "_blank", "noopener,noreferrer");
+    } else {
+      setStatus(listStatus, "올바른 링크가 없습니다.", "error");
+    }
+  });
+
+  const copyButton = makeElement("button", "secondary", "링크 복사");
+  copyButton.type = "button";
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(item.link || "");
+      setStatus(listStatus, "링크를 복사했습니다.", "success");
+    } catch {
+      setStatus(listStatus, "링크 복사에 실패했습니다.", "error");
+    }
+  });
+
+  const deleteButton = makeElement("button", "danger", "삭제");
+  deleteButton.type = "button";
+  deleteButton.addEventListener("click", () => deletePresentation(item.id));
+
+  actions.append(openButton, copyButton, deleteButton);
+  card.appendChild(actions);
+
+  return card;
+}
+
+async function loadPresentations() {
+  refreshButton.disabled = true;
+  setStatus(listStatus, "");
+  presentationList.replaceChildren(
+    makeElement("div", "empty", "발표 자료를 불러오는 중...")
+  );
+
+  try {
+    const response = await fetch(
+      `${API_URL}?select=*&order=created_at.desc`,
+      { method: "GET", headers: requestHeaders(), cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text() || `HTTP ${response.status}`);
     }
 
-    function headers(extra = {}) {
-      return {
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`,
-        ...extra
-      };
+    const result = await response.json();
+
+    if (!Array.isArray(result)) {
+      throw new Error("Unexpected response format");
     }
 
-    function safeText(value) {
-      return String(value ?? "");
+    presentationList.replaceChildren();
+    count.textContent = `${result.length}개`;
+
+    if (result.length === 0) {
+      presentationList.appendChild(
+        makeElement("div", "empty", "등록된 발표 자료가 없습니다.")
+      );
+      return;
     }
 
-    function isValidHttpUrl(value) {
-      try {
-        const parsed = new URL(value);
-        return parsed.protocol === "https:" || parsed.protocol === "http:";
-      } catch {
-        return false;
+    const fragment = document.createDocumentFragment();
+    result.forEach(item => fragment.appendChild(createCard(item)));
+    presentationList.appendChild(fragment);
+  } catch (error) {
+    presentationList.replaceChildren(
+      makeElement("div", "empty", "발표 자료를 표시하지 못했습니다.")
+    );
+    setStatus(listStatus, String(error.message || error), "error");
+  } finally {
+    refreshButton.disabled = false;
+  }
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = {
+    team_name: document.getElementById("teamName").value.trim(),
+    sharer: document.getElementById("sharer").value.trim(),
+    title: document.getElementById("title").value.trim(),
+    members: document.getElementById("members").value.trim(),
+    link: document.getElementById("link").value.trim()
+  };
+
+  if (Object.values(data).some(value => !value)) {
+    setStatus(formStatus, "모든 항목을 입력하세요.", "error");
+    return;
+  }
+
+  if (!isValidUrl(data.link)) {
+    setStatus(formStatus, "올바른 링크를 입력하세요.", "error");
+    return;
+  }
+
+  submitButton.disabled = true;
+  setStatus(formStatus, "등록 중...");
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: requestHeaders({
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      }),
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error(await response.text() || `HTTP ${response.status}`);
+    }
+
+    form.reset();
+    setStatus(formStatus, "발표 자료를 등록했습니다.", "success");
+    await loadPresentations();
+  } catch (error) {
+    setStatus(formStatus, "등록 실패: " + String(error.message || error), "error");
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+async function deletePresentation(id) {
+  if (!window.confirm("이 발표 자료를 삭제할까요? 다른 사용자에게도 삭제됩니다.")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${API_URL}?id=eq.${encodeURIComponent(id)}`,
+      {
+        method: "DELETE",
+        headers: requestHeaders({ "Prefer": "return=minimal" })
       }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text() || `HTTP ${response.status}`);
     }
 
-    function makeElement(tag, className, text) {
-      const element = document.createElement(tag);
-      if (className) element.className = className;
-      if (text !== undefined) element.textContent = text;
-      return element;
-    }
+    setStatus(listStatus, "삭제했습니다.", "success");
+    await loadPresentations();
+  } catch (error) {
+    setStatus(listStatus, "삭제 실패: " + String(error.message || error), "error");
+  }
+}
 
-    function createPresentationCard(item) {
-      const card = makeElement("article", "presentation");
-      const top = makeElement("div", "presentation-top");
-      top.appendChild(makeElement("span", "team-badge", safeText(item.team_name)));
-      top.appendChild(makeElement("span", "count", `#${safeText(item.id)}`));
-      card.appendChild(top);
+refreshButton.addEventListener("click", loadPresentations);
 
-      card.appendChild(makeElement("h3", "", safeText(item.title)));
-
-      const meta = makeElement("div", "meta");
-      meta.appendChild(makeElement("div", "", `공유한 사람: ${safeText(item.sharer)}`));
-      meta.appendChild(makeElement("div", "", `조원: ${safeText(item.members)}`));
-
-      if (item.created_at) {
-        const date = new Date(item.created_at);
-        if (!Number.isNaN(date.getTime())) {
-          meta.appendChild(
-            makeElement("div", "", `등록 시간: ${date.toLocaleString("ko-KR")}`)
-          );
-        }
-      }
-
-      card.appendChild(meta);
-
-      const linkBox = makeElement("div", "link-box");
-      const link = makeElement("a", "", safeText(item.link));
-      link.href = item.link;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      linkBox.appendChild(link);
-      card.appendChild(linkBox);
-
-      const actions = makeElement("div", "card-actions");
-
-      const openButton = makeElement("
+loadPresentations();
+</script>
+</body>
+</html>
